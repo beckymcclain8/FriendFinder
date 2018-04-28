@@ -1,0 +1,14 @@
+h1 {
+    font-weight: strong;
+    color: teal;
+}
+
+h3 {
+    color: teal;
+}
+
+.options {
+    margin-bottom: 15px;
+    border-radius: 5px;
+    padding: 3px;
+}
