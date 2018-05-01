@@ -5,17 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
         crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="style.css">
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
         crossorigin="anonymous"></script>
-
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
     <title>Survey</title>
 </head>
 
@@ -122,7 +124,8 @@
 
                 <h3>Question 9</h3>
                 <p>You think that everyone's views should be respected regardless of whether they are supported by facts or
-                    not.</p>
+                    not.
+                </p>
                 <select class="options" id="q9">
                     <option value="1">1 (Strongly Disaree)</option>
                     <option value="2">2</option>
@@ -155,25 +158,26 @@
                     </div>
                 </footer>
 
-                <div class="modal" tabindex="-1" role="dialog">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Your Best Match</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <h1 id="matchName"></h1>
-                                <img id="matchPhoto" src="#" alt="">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
+                <div id="results-modal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h2 class="modal-title"><strong>Best Match</strong></h2>
                         </div>
+                        <div class="modal-body">
+                          <h2 id="matchName"></h2>
+                          <img id="matchPhoto" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg" alt="">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                
                     </div>
-                </div>
+                  </div>
                 <!--col div-->
             </div>
             <!--row div-->
@@ -182,51 +186,78 @@
     </div>
 
     <script type="text/javascript">
- $("#submit").on("click", function(event) {
-    //  event.preventDefault();
+        $("#submit").on("click", function (event) {
+            //  event.preventDefault();
 
-     function validate() {
-         var isValid = true;
-         if($("#userName").val() === "") {
-             isValid = false;
-         } else if ($("#userPhoto").val() === "" ){
-             isValid = false;
-         } else if ($(".options").val() === "") {
-             isValid = false;
-         }
-         return isValid;
-     }
+            function validate() {
+                var isValid = true;
+                if ($("#userName").val() === "") {
+                    isValid = false;
+                } else if ($("#userPhoto").val() === "") {
+                    isValid = false;
+                } else if ($(".options").val() === "") {
+                    isValid = false;
+                }
+                return isValid;
+            }
 
-     if (validate()) {
-         var userData = {
-             name: $("userName").val(),
-             photo: $("userPhoto").val(),
-             scores: [
-                 $("#q1").val(),
-                 $("#q2").val(),
-                 $("#q3").val(),
-                 $("#q4").val(),
-                 $("#q5").val(),
-                 $("#q6").val(),
-                 $("#q7").val(),
-                 $("#q8").val(),
-                 $("#q9").val(),
-                 $("#q10").val(),
-             ]
-         };
+            if (validate()) {
+                var userData = {
+                    name: $("#userName").val(),
+                    photo: $("#userPhoto").val(),
+                    scores: [
+                        $("#q1").val(),
+                        $("#q2").val(),
+                        $("#q3").val(),
+                        $("#q4").val(),
+                        $("#q5").val(),
+                        $("#q6").val(),
+                        $("#q7").val(),
+                        $("#q8").val(),
+                        $("#q9").val(),
+                        $("#q10").val(),
+                    ]
+                };
 
-         $.post("api/friends", userData, function(data) {
-             $("#matchName").text(data.name);
-             $("#matchPhoto").attr("src", dta.photo);
+                $.post("api/friends", userData, function (data) {
+                    $("#matchName").text(data.name);
+                    $("#matchPhoto").attr("src", data.photo);
 
-             $("#results-modal").modal("toggle");
-         });
-     } else {
-         alert("You must fill in all fields before clicking submit.")
-     }
-     });
+                    $("#results-modal").modal("toggle");
+                });
+            } else {
+                alert("You must fill in all fields before clicking submit.")
+            }
+
+            $.get("api/friends", function (data) {
+                console.log(data);
+                var bestScore = 0;
+       
+                for (var i = 0; i < data.length; i++) {
+                    var scoreDifference = 0;
+                    var currentScore = data[i].scores;
+                    if (i === 0) {
+                        bestScore = scoreDifference
+                    } else if (scoreDifference < bestScore) {
+                        bestScore = scoreDifference
+                    }
+                    for (var j = 0; j < currentScore.length; j++) {
+                        var myScore = userData.scores[j];
+                        var theirScore = parseInt(currentScore[j]);
+                        scoreDifference += Math.abs(myScore - theirScore);
+                    }
+
+   
+                    console.log("myScore/userData: " + myScore);
+                    console.log("theirScore: " + theirScore);
+                    console.log("Score Diff: " + scoreDifference);
+                }
+            });
+        });
+
+
     </script>
-    
+
 </body>
 
 </html>
