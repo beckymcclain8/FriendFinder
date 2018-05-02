@@ -1,7 +1,7 @@
 var friendsArray = [
     {
-        "name":"Ahmed",
-        "photo":"https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg",
+        "name":"Chris",
+        "photo":"https://img.purch.com/h/1400/aHR0cDovL3d3dy5saXZlc2NpZW5jZS5jb20vaW1hZ2VzL2kvMDAwLzA5Ny83NDIvb3JpZ2luYWwvbWFjYXF1ZS1oZXJwZXMtbGV0aGFsLXRvLWh1bWFucw==",
         "scores":[
             5,
             5,
@@ -14,7 +14,72 @@ var friendsArray = [
             5,
             5
           ]
-      }
+      },
+      {
+        "name":"Robbie",
+        "photo":"https://img.thedailybeast.com/image/upload/c_crop,d_placeholder_euli9k,h_1440,w_2560,x_0,y_0/dpr_2.0/c_limit,w_740/fl_lossy,q_auto/v1515805265/180112-fisher-african-lions-tease_uaafsx",
+        "scores":[
+            3,
+            1,
+            5,
+            2,
+            3,
+            4,
+            5,
+            1,
+            2,
+            5
+          ]
+      },
+      {
+        "name":"Becky",
+        "photo":"https://www.natgeokids.com/wp-content/uploads/2017/02/giraffe-facts-1.jpg",
+        "scores":[
+            3,
+            1,
+            4,
+            2,
+            1,
+            4,
+            2,
+            3,
+            2,
+            4
+          ]
+      },
+      {
+        "name":"Brittany",
+        "photo":"https://assets.rbl.ms/6642507/980x.jpg",
+        "scores":[
+            5,
+            2,
+            3,
+            1,
+            5,
+            2,
+            5,
+            2,
+            4,
+            3
+          ]
+      },
+      {
+        "name":"Trent",
+        "photo":"https://www.alaskawildlife.org/wp-content/uploads/2016/12/moose-face.jpg",
+        "scores":[
+            2,
+            3,
+            3,
+            4,
+            3,
+            4,
+            5,
+            1,
+            4,
+            3
+          ]
+      },
 ];
 
 module.exports = friendsArray;
+
