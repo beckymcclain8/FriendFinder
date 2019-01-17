@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head></head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -15,7 +15,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="/style.css">
-
+ 
     <title>Survey</title>
 </head>
 
@@ -188,7 +188,7 @@
 
     <script>
         $("#submit").on("click", function (event) {
-
+            // Checking to be certain the form is filled out with no fields left blank.
             function validate() {
                 var isValid = true;
                 if ($("#userName").val() === "") {
@@ -200,7 +200,7 @@
                 }
                 return isValid;
             }
-
+            // If the form has been validated then create an object with the user's data.  
             if (validate()) {
                 var userData = {
                     name: $("#userName").val(),
@@ -218,6 +218,7 @@
                         $("#q10").val(),
                     ]
                 };
+                // This will post the data to the friends api.
                 $.post("api/friends", userData, function (data) {
 
                 });
@@ -225,21 +226,25 @@
             } else {
                 alert("You must fill in all fields before clicking submit.")
             }
-
+            // This retrieves the data from the friends api.  
             $.get("api/friends", function (data) {
                 console.log(data);
                 var matchName = '';
                 var matchPhoto = '';
-                var bestScore = 10000;
+                var bestScore = 10000; 
 
                 for (var i = 0; i < data.length - 1; i++) {
-
+                    // Setting the current score to the coordinating data 
                     var currentScore = data[i].scores;
 
                     var scoreDifference = 0;
+                    // Looping through each piece of data to compare the user's data with the saved friends' data
                     for (var j = 0; j < currentScore.length; j++) {
+                        // Saves the user's data as a variable for comparing purposes
                         var myScore = userData.scores[j];
+                        // parseInt changes the string to a number
                         var theirScore = parseInt(currentScore[j]);
+                        // finds the absolute value between the two scores and saves it as scoreDifference and then continues to add each absolute value to the total
                         scoreDifference += Math.abs(myScore - theirScore);
                     }
                     if (scoreDifference < bestScore) {
@@ -253,6 +258,7 @@
                     console.log("Score Diff: " + scoreDifference);
                     console.log("Best Score: " + bestScore);
                 }
+                // Sends the match data to the modal
                 $("#matchName").text(matchName);
                 $("#matchPhoto").attr("src", matchPhoto);
                 $("#results-modal").modal("toggle");
